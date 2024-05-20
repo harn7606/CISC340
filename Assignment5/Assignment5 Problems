@@ -1,0 +1,27 @@
+As a programming exercise, translate the following Java method into MIPS assembly. 
+Your top-level code (main if you will) should pass the base address of the array and its size to average, and average will do all of the input and output before returning. 
+(In Java, we wouldn't have to pass the size along with an array since arrays provide a length field, but we need to pass it here since MIPS arrays don't know how long they are.) 
+
+float data[] = {9.24, 1.15, 3.91, -2.30, 7.43, 5.79, 6.83, 3.14};
+int size = 8;
+
+/**
+ * average is passed the base address of the array of floats and
+ * its size.  It prompts the user for the number of elements from
+ * the array to average, averages them, and prints the result.
+ */
+public static void average(float nums[], int size) {
+    Scanner scan = new Scanner(System.in);
+
+    System.out.println("How many should be averaged?");
+    int n = scan.nextInt();
+
+    if (n > size){   // don't average more than there are
+        n = size;}
+
+    float sum = 0.0;
+    for(int i=0; i<n; i++){
+        sum = sum + nums[i];}
+
+    System.out.println("The average is " + (sum / n));
+}
