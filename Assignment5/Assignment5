@@ -1,0 +1,77 @@
+	.data
+array:	.float 9.24, 1.15, 3.91, -2.30, 7.43, 5.79, 6.83, 3.14
+size:	.word 8
+sum:	.float 0.0
+pmpt1:	.asciiz "How many should be averaged? "
+pmpt2:	.asciiz "The average is "
+	.text
+main:	
+	la $a1, size # address of size
+	lw $a1, 0($a1) #size
+	la $a0, array # address of array
+	
+	jal average
+	
+	#exit
+	li $v0, 10
+	syscall
+	
+average:
+	subi $sp, $sp, 20
+	sw $ra, 16($sp) # jal
+	sw $s3, 12($sp) # counter
+	sw $s2, 8($sp) # n
+	sw $s1, 4($sp) # size
+	sw $s0, 0($sp) # array
+	
+	add $s0, $a0, $zero
+	add $s1, $a1, $zero
+	
+	#print prompt for int
+	li $v0, 4
+	la $a0, pmpt1
+	syscall
+	
+	#get the int value
+	li $v0, 5
+	syscall
+	move $s2, $v0 # move n into s2
+	
+	li $s3, 0 # s0 is counter
+	mtc1 $zero, $f0
+	
+	slt $t0, $s2, $s1 # n < size  $t0 = 1
+	bne $t0, $zero, skip # jump if n is less than size
+		move $s2, $s1 # move size to n
+skip:
+loopStart:
+	slt $t0, $s3, $s2 # counter < n
+	beq $t0, $zero, loopEnd # jump if counter is not less than n
+	
+		lwc1 $f1, 0($s0) #$f1 = array[index]
+		add.s $f0, $f0, $f1 # add to sum
+		addi $s0, $s0, 4 # move the next cell in array
+		addi $s3, $s3, 1 #move our index
+		j loopStart
+loopEnd:
+	mtc1 $s2, $f2 # move n to a float
+	cvt.s.w $f2, $f2 # convert n into a float
+	div.s $f0, $f0, $f2 # divide the sum of the array by n
+	
+	# print prompt for average
+	li $v0, 4
+	la $a0, pmpt2
+	syscall
+	
+	#print the average
+	li $v0, 2
+	mov.s $f12, $f0
+	syscall
+	
+	lw $s0, 0($sp)
+	lw $s1, 4($sp)
+	lw $s2, 8($sp)
+	lw $s3, 12($sp)
+	lw $ra, 16($sp)
+	addi $sp, $sp, 20
+	jr $ra
