@@ -1,4 +1,4 @@
-Generate MIPS instructions that compute a = a + 1.
+Generate MIPS instructions that compute a = a + 1. 
 Generate MIPS instructions that compute a = b - (c - d).
 Generate MIPS instructions that compute a = 1 - a.
 Generate MIPS instructions that compute a = 2 * (b + c). (We haven't learned an instruction for multiplication yet, but you don't need one.)
