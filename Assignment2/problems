@@ -1,0 +1,8 @@
+Generate MIPS instructions that compute a = a + 1.
+Generate MIPS instructions that compute a = b - (c - d).
+Generate MIPS instructions that compute a = 1 - a.
+Generate MIPS instructions that compute a = 2 * (b + c). (We haven't learned an instruction for multiplication yet, but you don't need one.)
+Generate MIPS instructions that compute a = 15 * b. (For full credit, your solution should consist of just two instructions, neither of which is a multiplication [see available instruction above].)
+Generate MIPS instructions that compute a = b * 2 - (a + 2).
+Assume that $s0 holds the base address for an array of integers. Write a sequence of assembly instructions that will sum the first three entries in the array, leaving the result in $s1. Do not use branches or loops.
+Assume that $s0 holds the base address for an array of integers. Write assembly code that doubles each of the first three entries in the array and stores the results back into the appropriate locations in memory. Do not use branches or loops.
